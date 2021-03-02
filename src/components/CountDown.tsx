@@ -1,41 +1,20 @@
-import { useEffect, useState } from 'react';
-import { isatty } from 'tty';
+import { useContext } from 'react';
+import { CountDownContext } from '../contexts/CountDownContext';
 import styles from '../styles/components/CountDown.module.css';
-
-let countdownTimeout: NodeJS.Timeout;
 
 export function CountDown() {
 
-    const [time, setTime] = useState(0.1 * 60);
-    const [isActive, setIsActive] = useState(false);
-    const [hasFinished, setHasFinished] = useState(false);
-
-    const minutes = Math.floor(time / 60);
-    const secounds = time % 60;
+    const { 
+        minutes,
+        secounds,
+        isActive,
+        hasFinished,
+        resetCountDown,
+        startCountDown
+    } = useContext(CountDownContext);
 
     const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
     const [secoundLeft, secoundRight] = String(secounds).padStart(2, '0').split('');
-
-    function startCountDown() {
-        setIsActive(true);
-    }
-
-    function resetCountDown() {
-        clearTimeout(countdownTimeout);
-        setIsActive(false);
-        setTime(0.1 * 60);
-    }
-
-    useEffect(() => {
-        if (isActive && time > 0) {
-            countdownTimeout = setTimeout(() => {
-                setTime(time - 1);
-            }, 1000);
-        } else if (isActive && time === 0) {
-            setHasFinished(true);
-            setIsActive(false);
-        }
-    }, [isActive, time])
 
     return (
         <div>

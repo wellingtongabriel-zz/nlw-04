@@ -1,0 +1,12 @@
+[
+    {
+        "type": "body",
+        "description": "Estique as pernas",
+        "amount": 80
+    },
+    {
+        "type": "eye",
+        "description": "Estique as mãos",
+        "amount": 80
+    }
+]
